@@ -2,7 +2,7 @@
 
 A privacy-focused chat application that uses AI to detect and protect Personally Identifiable Information (PII) in real-time conversations.
 
-## 🌟 Features
+## Features
 
 - Real-time PII detection using spaCy
 - AI-powered responses with Ollama integration
@@ -11,7 +11,7 @@ A privacy-focused chat application that uses AI to detect and protect Personally
 - Keyboard shortcuts for better UX
 - Responsive design for all devices
 
-## 🚀 Quick Start
+## Quick Start
 
 1. Clone the repository:
 ```bash
@@ -57,7 +57,7 @@ http://localhost:8000
 4. The AI will provide a response while maintaining privacy
 5. Use Ctrl+Enter to quickly send messages
 
-## 🔒 Security Features
+## Security Features
 
 - PII detection and masking
 - Secure API endpoints
@@ -76,7 +76,7 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+ -
 
 ## 🙏 Acknowledgments
 
