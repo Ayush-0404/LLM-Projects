@@ -57,6 +57,26 @@ http://localhost:8000
 4. The AI will provide a response while maintaining privacy
 5. Use Ctrl+Enter to quickly send messages
 
+## 📸 Screenshots & Demo
+
+Below are some screenshots and a demo video showcasing PrivChat in action.
+
+### Screenshots
+
+![Web View](Screenshots%20%26%2video/PrivChat1.png)
+![Prompt & output](Screenshots%20%26%20video/PrivChat2.png)
+![Console & visual display of Detected Name Enities & LLM's Reponse](Screenshots%20%26%20video/PrivChat3.png)
+
+### Demo Video
+
+[![Watch the Demo](Screenshots%20%26%20video/PrivChat1.png)]([https://youtu.be/YOUR_VIDEO_ID](https://github.com/Ayush-0404/LLM-Projects/blob/81c809c5359af0bcc2da0bb0a9074645a3f661a5/Screenshots%20%26%20video/ScreenRecording.mp4))
+<!-- 
+Replace 'demo-thumbnail.png' with a suitable thumbnail image from your Screenshots & video folder.
+Replace 'https://youtu.be/YOUR_VIDEO_ID' with your actual YouTube or hosted video link.
+If you have a local video file, link it directly like:
+[Download Demo Video](Screenshots%20%26%20video/demo.mp4)
+-->
+
 ## Security Features
 
 - PII detection and masking
