@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PrivChat - Secure AI Chat</title>
+    <style>
+        /* Basic setup - sabse pehle ye karna hai */
+        :root {
+            --primary: #00FF66;
+            --primary-dark: #00CC52;
+            --background: #0D1117;
+            --surface: #161B22;
+            --text: #C9D1D9;
+            --text-secondary: #8B949E;
+            --border: #30363D;
+            --success: #238636;
+            --error: #DA3633;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: var(--background);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* Main container - pure page ka structure */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .window {
+            background: rgba(18, 18, 18, 0.96);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
+            border: 1px solid var(--border);
+        }
+
+        /* Header section - top wala part */
+        .header {
+            text-align: center;
+            padding: 2rem;
+            border-bottom: 1px solid var(--border);
+            background: rgba(30, 30, 30, 0.8);
+            backdrop-filter: blur(10px);
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, var(--primary), #00C6FF);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+            font-weight: 800;
+            letter-spacing: -1px;
+            text-shadow: 0 0 8px rgba(0, 255, 102, 0.6);
+        }
+
+        .header p {
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .header .tagline {
+            color: var(--primary);
+            font-size: 1.1rem;
+            margin-top: 0.5rem;
+            font-weight: 500;
+        }
+
+        /* Main content - do columns mein split */
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            padding: 2rem;
+            align-items: start;
+        }
+
+        /* Input section - left side wala part */
+        .input-section {
+            background: var(--surface);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .input-section h2 {
+            color: var(--text);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .input-area {
+            width: 100%;
+            min-height: 200px;
+            padding: 1rem;
+            background: rgba(240, 240, 240, 0.1);
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            color: var(--text);
+            font-size: 1rem;
+            resize: vertical;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .input-area:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(0, 255, 102, 0.1);
+        }
+
+        /* Send button - message bhejne wala button */
+        .send-btn {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: var(--background);
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .send-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 255, 102, 0.4);
+        }
+
+        .send-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Results section - right side wala part */
+        .results-section {
+            background: var(--surface);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .results-section h2 {
+            color: var(--text);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .result-box {
+            background: rgba(240, 240, 240, 0.08);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--border);
+        }
+
+        .result-box h3 {
+            color: var(--text);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--primary);
+        }
+
+        /* PII highlight - sensitive data ko highlight karne ke liye */
+        .highlight {
+            background: rgba(0, 255, 102, 0.1);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            margin: 0 0.2rem;
+            border: 1px solid rgba(0, 255, 102, 0.2);
+            animation: highlightPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes highlightPulse {
+            0%, 100% { box-shadow: 0 0 12px rgba(0, 255, 102, 0.4); }
+            50% { box-shadow: 0 0 20px rgba(0, 255, 102, 0.8); }
+        }
+
+        .entity-tag {
+            display: inline-block;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-left: 0.5rem;
+            background: var(--primary);
+            color: var(--background);
+            font-weight: 600;
+        }
+
+        /* Loading animation - processing ke time dikhega */
+        .loading {
+            display: none;
+            text-align: center;
+            margin: 1rem 0;
+        }
+
+        .loading::after {
+            content: '';
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            border: 3px solid var(--primary);
+            border-radius: 50%;
+            border-top-color: transparent;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Response styling - AI ka response dikhane ke liye */
+        .llm-response {
+            white-space: pre-wrap;
+            font-family: 'SF Mono', 'Consolas', monospace;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 1rem;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+        }
+
+        /* Error message - koi error aaye to dikhega */
+        .error-message {
+            color: var(--error);
+            background: rgba(218, 54, 51, 0.1);
+            padding: 1rem;
+            border-radius: 6px;
+            border: 1px solid var(--error);
+            margin-top: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Security badge - security ka indicator */
+        .security-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(0, 255, 102, 0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            border: 1px solid rgba(0, 255, 102, 0.2);
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: var(--primary);
+        }
+
+        /* Mobile responsive - chote screens ke liye */
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="window">
+            <div class="header">
+                <h1>PrivChat</h1>
+                <p>Your secure AI-powered chat platform</p>
+                <div class="tagline">Privacy-first, AI-enhanced communication</div>
+            </div>
+
+            <div class="main-content">
+                <div class="input-section">
+                    <h2>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                        </svg>
+                        Start a Conversation
+                    </h2>
+                    <textarea id="inputText" class="input-area" placeholder="Type your message here... (e.g., 'Hi, I'm John Doe from New York. Call me at (555) 123-4567')"></textarea>
+                    <button id="sendBtn" class="send-btn">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 2L11 13M22 2L15 22L11 13L2 9L22 2Z"/>
+                        </svg>
+                        Send Message
+                    </button>
+                    <div class="security-badge">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                        </svg>
+                        End-to-end encrypted
+                    </div>
+                    <div id="loading" class="loading"></div>
+                </div>
+
+                <div class="results-section">
+                    <h2>Analysis Results</h2>
+                    <div class="result-box">
+                        <h3>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 2L2 7L12 12L22 7L12 2Z"/>
+                                <path d="M2 17L12 22L22 17"/>
+                                <path d="M2 12L12 17L22 12"/>
+                            </svg>
+                            Detected Entities
+                        </h3>
+                        <div id="entitiesResult"></div>
+                    </div>
+                    <div class="result-box">
+                        <h3>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                            </svg>
+                            AI Response
+                        </h3>
+                        <div id="llmResult" class="llm-response"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Message bhejne ka function
+        document.getElementById('sendBtn').addEventListener('click', async () => {
+            const inputText = document.getElementById('inputText').value;
+            const loading = document.getElementById('loading');
+            const entitiesResult = document.getElementById('entitiesResult');
+            const llmResult = document.getElementById('llmResult');
+
+            if (!inputText.trim()) {
+                entitiesResult.innerHTML = '<div class="error-message">Please enter a message to send</div>';
+                return;
+            }
+
+            loading.style.display = 'block';
+            entitiesResult.innerHTML = '';
+            llmResult.innerHTML = '';
+
+            try {
+                const response = await fetch('http://localhost:8000/api/process', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ text: inputText }),
+                });
+
+                if (!response.ok) {
+                    throw new Error('API request failed');
+                }
+
+                const data = await response.json();
+
+                // PII entities ko highlight karna
+                let highlightedText = inputText;
+                data.entities.forEach(entity => {
+                    const entityText = entity.text;
+                    const entityType = entity.label;
+                    const regex = new RegExp(entityText, 'g');
+                    highlightedText = highlightedText.replace(
+                        regex,
+                        `<span class="highlight">${entityText}<span class="entity-tag">${entityType}</span></span>`
+                    );
+                });
+                entitiesResult.innerHTML = highlightedText;
+
+                // AI response ya error dikhana
+                if (data.error) {
+                    llmResult.innerHTML = `<div class="error-message">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/>
+                            <path d="M12 8v4"/>
+                            <path d="M12 16h.01"/>
+                        </svg>
+                        ${data.error}
+                    </div>`;
+                } else {
+                    llmResult.textContent = data.llm_response;
+                }
+
+            } catch (error) {
+                console.error('Error:', error);
+                entitiesResult.innerHTML = '<div class="error-message">Error processing request. Please try again.</div>';
+                llmResult.innerHTML = '';
+            } finally {
+                loading.style.display = 'none';
+            }
+        });
+
+        // Keyboard shortcut - Ctrl+Enter se message bhej sakte hain
+        document.getElementById('inputText').addEventListener('keydown', function(e) {
+            if (e.ctrlKey && e.key === 'Enter') {
+                document.getElementById('sendBtn').click();
+            }
+        });
+    </script>
+</body>
+</html> 

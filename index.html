@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PII Detection & LLM Chat</title>
+    <style>
+        /* Base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #1a1a1a;
+            color: #ffffff;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .header h1 {
+            color: #00ff88;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            color: #888;
+        }
+
+        /* Main content */
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        /* Input section */
+        .input-section {
+            background: #2a2a2a;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .input-section h2 {
+            color: #00ff88;
+            margin-bottom: 1rem;
+        }
+
+        .input-area {
+            width: 100%;
+            min-height: 150px;
+            padding: 1rem;
+            background: #333;
+            border: 1px solid #444;
+            border-radius: 5px;
+            color: #fff;
+            font-size: 1rem;
+            resize: vertical;
+            margin-bottom: 1rem;
+        }
+
+        .send-btn {
+            background: #00ff88;
+            color: #1a1a1a;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s ease;
+        }
+
+        .send-btn:hover {
+            background: #00cc6a;
+        }
+
+        /* Results section */
+        .results-section {
+            background: #2a2a2a;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .results-section h2 {
+            color: #00ff88;
+            margin-bottom: 1rem;
+        }
+
+        .result-box {
+            background: #333;
+            padding: 1rem;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+        }
+
+        .result-box h3 {
+            color: #00ff88;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .highlight {
+            background: rgba(0, 255, 136, 0.2);
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+            margin: 0 0.2rem;
+        }
+
+        .entity-tag {
+            display: inline-block;
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+            font-size: 0.8rem;
+            margin-left: 0.5rem;
+            background: #444;
+            color: #00ff88;
+        }
+
+        /* Loading state */
+        .loading {
+            display: none;
+            text-align: center;
+            margin: 1rem 0;
+        }
+
+        .loading::after {
+            content: '';
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #00ff88;
+            border-radius: 50%;
+            border-top-color: transparent;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>PII Detection & LLM Chat</h1>
+            <p>Enter your text to detect PII and get LLM response</p>
+        </div>
+
+        <div class="main-content">
+            <div class="input-section">
+                <h2>Input</h2>
+                <textarea id="inputText" class="input-area" placeholder="Enter your text here..."></textarea>
+                <button id="sendBtn" class="send-btn">Send</button>
+                <div id="loading" class="loading"></div>
+            </div>
+
+            <div class="results-section">
+                <h2>Results</h2>
+                <div class="result-box">
+                    <h3>Detected Entities</h3>
+                    <div id="entitiesResult"></div>
+                </div>
+                <div class="result-box">
+                    <h3>LLM Response</h3>
+                    <div id="llmResult"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('sendBtn').addEventListener('click', async () => {
+            const inputText = document.getElementById('inputText').value;
+            const loading = document.getElementById('loading');
+            const entitiesResult = document.getElementById('entitiesResult');
+            const llmResult = document.getElementById('llmResult');
+
+            if (!inputText.trim()) {
+                alert('Please enter some text');
+                return;
+            }
+
+            // Show loading state
+            loading.style.display = 'block';
+            entitiesResult.innerHTML = '';
+            llmResult.innerHTML = '';
+
+            try {
+                const response = await fetch('http://localhost:8000/api/process', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ text: inputText }),
+                });
+
+                if (!response.ok) {
+                    throw new Error('API request failed');
+                }
+
+                const data = await response.json();
+
+                // Display entities
+                let highlightedText = inputText;
+                data.entities.forEach(entity => {
+                    const entityText = entity.text;
+                    const entityType = entity.label;
+                    const regex = new RegExp(entityText, 'g');
+                    highlightedText = highlightedText.replace(
+                        regex,
+                        `<span class="highlight">${entityText}<span class="entity-tag">${entityType}</span></span>`
+                    );
+                });
+                entitiesResult.innerHTML = highlightedText;
+
+                // Display LLM response
+                llmResult.textContent = data.llm_response;
+
+            } catch (error) {
+                console.error('Error:', error);
+                entitiesResult.innerHTML = 'Error processing request';
+                llmResult.innerHTML = 'Error processing request';
+            } finally {
+                loading.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html> 
