@@ -69,7 +69,7 @@ Below are some screenshots and a demo video showcasing PrivChat in action.
 
 ### Demo Video
 
-[![Watch the Demo](Screenshots%20%26%20video/PrivChat1.png)]([https://youtu.be/YOUR_VIDEO_ID](https://github.com/Ayush-0404/LLM-Projects/blob/81c809c5359af0bcc2da0bb0a9074645a3f661a5/Screenshots%20%26%20video/ScreenRecording.mp4))
+[![Watch the Demo](Screenshots%20%26%20video/PrivChat1.png)](https://drive.google.com/file/d/1IuUaMSQkMwdwI4Ao1mqUwkkuvfBwf6mb/view?usp=sharing)
 <!-- 
 Replace 'demo-thumbnail.png' with a suitable thumbnail image from your Screenshots & video folder.
 Replace 'https://youtu.be/YOUR_VIDEO_ID' with your actual YouTube or hosted video link.
