@@ -71,10 +71,7 @@ Below are some screenshots and a demo video showcasing PrivChat in action.
 
 [![Watch the Demo](Screenshots%20%26%20video/PrivChat1.png)](https://drive.google.com/file/d/1IuUaMSQkMwdwI4Ao1mqUwkkuvfBwf6mb/view?usp=sharing)
 <!-- 
-Replace 'demo-thumbnail.png' with a suitable thumbnail image from your Screenshots & video folder.
-Replace 'https://youtu.be/YOUR_VIDEO_ID' with your actual YouTube or hosted video link.
-If you have a local video file, link it directly like:
-[Download Demo Video](Screenshots%20%26%20video/demo.mp4)
+
 -->
 
 ## Security Features
