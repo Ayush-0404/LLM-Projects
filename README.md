@@ -6,7 +6,7 @@ A privacy-focused chat application that uses AI to detect and protect Personally
 
 - Real-time PII detection using spaCy
 - AI-powered responses with Ollama integration
-- Beautiful, minimilistic modern UI with dark theme
+- Beautiful, minimalistic modern UI with dark theme
 - End-to-end encryption
 - Keyboard shortcuts for better UX
 - Responsive design for all devices
