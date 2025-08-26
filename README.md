@@ -80,7 +80,7 @@ Below are some screenshots and a demo video showcasing PrivChat in action.
 - Secure API endpoints
 - Input sanitization
 - Error handling and logging
-- For people who want to have their own offline partner.
+- For people who want to have their own offline partner
 
 ## 🤝 Contributing
 
@@ -99,5 +99,6 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 - [spaCy](https://spacy.io/)
 - [Ollama](https://ollama.ai/)
 - [GitHub](https://github.com/) 
+
 
 
