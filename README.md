@@ -84,7 +84,7 @@ Below are some screenshots and a demo video showcasing PrivChat in action.
 
 ## 🤝 Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+Contributions are welcome! Please feel free to submit a Pull Request
 
 1. Fork the repository
 2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
@@ -99,6 +99,7 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 - [spaCy](https://spacy.io/)
 - [Ollama](https://ollama.ai/)
 - [GitHub](https://github.com/) 
+
 
 
 
