@@ -70,6 +70,7 @@ Below are some screenshots and a demo video showcasing PrivChat in action.
 ### Demo Video
 
 [![Watch the Demo](Screenshots%20%26%20video/PrivChat1.png)](https://drive.google.com/file/d/1IuUaMSQkMwdwI4Ao1mqUwkkuvfBwf6mb/view?usp=sharing)
+check video folder in the repo
 <!-- 
 
 -->
@@ -99,6 +100,7 @@ Contributions are welcome! Please feel free to submit a Pull Request
 - [spaCy](https://spacy.io/)
 - [Ollama](https://ollama.ai/)
 - [GitHub](https://github.com/) 
+
 
 
 
