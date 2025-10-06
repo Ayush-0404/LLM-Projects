@@ -94,12 +94,13 @@ Contributions are welcome! Please feel free to submit a Pull Request
 5. Open a Pull Request
 
 
-## 🙏 Acknowledgments 
+## 🙏 Acknowledgments - 
 
 - [FastAPI](https://fastapi.tiangolo.com/)
 - [spaCy](https://spacy.io/)
 - [Ollama](https://ollama.ai/)
 - [GitHub](https://github.com/) 
+
 
 
 
