@@ -49,7 +49,7 @@ http://localhost:8000
 - **AI/ML**: spaCy (NER), Ollama (LLM)
 - **Styling**: Custom CSS with modern design principles
 
-## 📝 Usage - 
+## 📝 Usage
 
 1. Type your message in the input box
 2. The system will automatically detect any PII
@@ -100,6 +100,7 @@ Contributions are welcome! Please feel free to submit a Pull Request
 - [spaCy](https://spacy.io/)
 - [Ollama](https://ollama.ai/)
 - [GitHub](https://github.com/) 
+
 
 
 
