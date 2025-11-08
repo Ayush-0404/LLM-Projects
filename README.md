@@ -13,7 +13,7 @@ A privacy-focused chat application that uses AI to detect and protect Personally
 
 ## Quick Start
 
-1. Clone the repository:
+1. Clone the repository: -
 ```bash
 git clone https://github.com/yourusername/privchat.git
 cd privchat
@@ -100,6 +100,7 @@ Contributions are welcome! Please feel free to submit a Pull Request
 - [spaCy](https://spacy.io/)
 - [Ollama](https://ollama.ai/)
 - [GitHub](https://github.com/) 
+
 
 
 
