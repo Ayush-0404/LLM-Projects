@@ -61,7 +61,7 @@ http://localhost:8000
 
 Below are some screenshots and a demo video showcasing PrivChat in action.
 
-### Screenshots -
+### Screenshots 
 
 ![Web View](Screenshots%20%26%2video/PrivChat1.png)
 ![Prompt & output](Screenshots%20%26%20video/PrivChat2.png)
@@ -100,6 +100,7 @@ Contributions are welcome! Please feel free to submit a Pull Request
 - [spaCy](https://spacy.io/)
 - [Ollama](https://ollama.ai/)
 - [GitHub](https://github.com/) 
+
 
 
 
