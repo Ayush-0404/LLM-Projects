@@ -37,7 +37,7 @@ ollama pull llama2
 uvicorn main:app --reload
 ```
 
-5. Open your browser and navigate to:
+5. Open your browser and navigate to
 ```
 http://localhost:8000
 ```
@@ -100,6 +100,7 @@ Contributions are welcome! Please feel free to submit a Pull Request
 - [spaCy](https://spacy.io/)
 - [Ollama](https://ollama.ai/)
 - [GitHub](https://github.com/) 
+
 
 
 
